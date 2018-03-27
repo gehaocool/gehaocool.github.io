@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="编辑文本文件，是工作中最常做的工作。于是顺手而且好用的文本编辑器就特别重要，在试用了好几种文本编辑器之后，我选中了 VS Code。 在试用各种文本编辑器的过程中，我列了一个小表格，对各种编辑器的特点进行简单的记录。在选择 VS Code 之后，回头一看，表格里已经列有不少软件了，于是我索性再继续增加几种常见的文本编辑器进去，并且做了一点有针对性的测试。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文本编辑器测试总结">
+<meta property="og:url" content="http://yoursite.com/2018/03/27/文本编辑器测试总结/index.html">
+<meta property="og:site_name" content="Gopeth&#39;s blog">
+<meta property="og:description" content="编辑文本文件，是工作中最常做的工作。于是顺手而且好用的文本编辑器就特别重要，在试用了好几种文本编辑器之后，我选中了 VS Code。 在试用各种文本编辑器的过程中，我列了一个小表格，对各种编辑器的特点进行简单的记录。在选择 VS Code 之后，回头一看，表格里已经列有不少软件了，于是我索性再继续增加几种常见的文本编辑器进去，并且做了一点有针对性的测试。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-27T10:28:43.954Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文本编辑器测试总结">
+<meta name="twitter:description" content="编辑文本文件，是工作中最常做的工作。于是顺手而且好用的文本编辑器就特别重要，在试用了好几种文本编辑器之后，我选中了 VS Code。 在试用各种文本编辑器的过程中，我列了一个小表格，对各种编辑器的特点进行简单的记录。在选择 VS Code 之后，回头一看，表格里已经列有不少软件了，于是我索性再继续增加几种常见的文本编辑器进去，并且做了一点有针对性的测试。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/27/文本编辑器测试总结/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>文本编辑器测试总结 | Gopeth's blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gopeth's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/文本编辑器测试总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gopeth">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gopeth's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文本编辑器测试总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-27T17:27:15+08:00">2018-03-27</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>编辑文本文件，是工作中最常做的工作。于是顺手而且好用的文本编辑器就特别重要，在试用了好几种文本编辑器之后，我选中了 VS Code。</p>
+<p>在试用各种文本编辑器的过程中，我列了一个小表格，对各种编辑器的特点进行简单的记录。在选择 VS Code 之后，回头一看，表格里已经列有不少软件了，于是我索性再继续增加几种常见的文本编辑器进去，并且做了一点有针对性的测试。</p>
+<a id="more"></a>
+<p>表格如下</p>
+<blockquote>
+<p>速度测试方法：以482万行的文本文档为例，文件大小302MB，统计两个时间：</p>
+<ul>
+<li>打开文件的用时</li>
+<li>替换一个每行都有的短语的用时</li>
+</ul>
+</blockquote>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th>编辑器名称</th>
+<th style="text-align:center">版本（默认x64)</th>
+<th>是否汉化</th>
+<th>平台</th>
+<th>特点</th>
+<th>收费情况</th>
+<th>速度测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td>Sublime Text 3</td>
+<td style="text-align:center">3.0 build 3143</td>
+<td>否</td>
+<td>Windows/Linux</td>
+<td>速度快，插件较多，但插件水平参差不齐，安装插件后功能比较完善。对于大文档，打开速度一般，慢于vscode，搜索替换可以完成但速度也比较慢</td>
+<td>试用免费，可无限试用，几乎无限制</td>
+<td>10.86s/23.78s整个操作过程都很卡</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td>VS Code</td>
+<td style="text-align:center">1.21.1</td>
+<td>是</td>
+<td>Windows/Linux</td>
+<td>速度比较快，插件多而全，对大文档打开速度快，搜索速度也很快，但批量替换无法完成</td>
+<td>免费</td>
+<td>3.73s/无法完成</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td>Notepad++</td>
+<td style="text-align:center">7.5.1</td>
+<td>是</td>
+<td>Windows/Linux</td>
+<td>速度很快，带有常用的语法高亮和自动完成功能。不支持1G以上文档</td>
+<td>免费</td>
+<td>1.45s/42.18s</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td>EverEdit</td>
+<td style="text-align:center">4</td>
+<td>是</td>
+<td>Windows</td>
+<td>国人开发，速度较快，功能比较完善，支持插件，但插件种类目前比较少，属于即开即用型。对大文档支持比较好，打开速度比较快，搜索替换也比较快，但慢于UE</td>
+<td>收费 158￥</td>
+<td>6.85s/17.08s</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td>UltraEdit</td>
+<td style="text-align:center">24.20.0.40</td>
+<td>是</td>
+<td>Windows/Linux</td>
+<td>速度很快，带有常用的语法高亮和自动完成功能。对大文档支持较好，搜索、替换速度一般，但不会导致软件卡顿</td>
+<td>收费</td>
+<td>1s/22.28s</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td>EmEditor</td>
+<td style="text-align:center">17.42</td>
+<td>是</td>
+<td>Windows</td>
+<td>速度很快，对csv文件支持较好，功能也偏向CSV文件的处理，代码方面功能较为单薄。打开大文档速度极快，查找替换速度也极快</td>
+<td>收费（有免费版，但功能受限，例如不支持大文件）</td>
+<td>瞬间打开，不超过0.5s/1.81s</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td>Vim</td>
+<td style="text-align:center"></td>
+<td>否</td>
+<td>Linux（Windows Gvim）</td>
+<td>这个大家都懂的，Linux自带，不需安装，速度很快。经过配置与插件之后，可以做成IDE，全快捷键操作</td>
+<td>免费</td>
+<td>3.05s/27.8s</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td>EditPlus</td>
+<td style="text-align:center">4.3 build 2555</td>
+<td>是</td>
+<td>Windows</td>
+<td>功能比较简单</td>
+<td>US $35</td>
+<td>3.33s/假死，无响应，等待5m20s后放弃</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td>Notepad-mod</td>
+<td style="text-align:center">4.2.25 r998</td>
+<td>是</td>
+<td>Windows</td>
+<td>轻便的Windows自带记事本的替代方案，主打轻量、快速，只有一个exe文件。带有常用代码高亮，代码提示等功能。</td>
+<td>免费</td>
+<td>5s/假死、无响应</td>
+</tr>
+</tbody>
+</table>
+<p>其实我一开始很傻的用文本编辑器去打开很大的文本文档，速度又慢，编辑效率也不高。后来发现其实用<code>grep</code>和<code>sed</code>命令就可以很快的做好这一工作。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/20/Angular-Margin-在人脸识别中的应用/" rel="next" title="Angular Margin 在人脸识别中的应用">
+                <i class="fa fa-chevron-left"></i> Angular Margin 在人脸识别中的应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Gopeth</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gopeth</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
