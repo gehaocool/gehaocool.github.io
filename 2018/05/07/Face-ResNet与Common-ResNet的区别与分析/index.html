@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Gopeth&#39;s blog">
 <meta property="og:description" content="最近在纠结网络结构对识别性能的影响。 纠结的主要原因是我发现有一种变体ResNet从Center Loss和SphereFace开始被广泛使用于人脸识别领域，包括后来的AMSoftmax、CosineFace、InsightFace都使用了同样的网络结构。当然InsightFace的Project里实现了很多种不同的Backbone网络结构。 我暂时叫这种变体为Face-ResNet，He Kai">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-07T08:23:52.004Z">
+<meta property="og:updated_time" content="2018-05-07T08:26:50.731Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Face-ResNet与Common-ResNet的区别与分析">
 <meta name="twitter:description" content="最近在纠结网络结构对识别性能的影响。 纠结的主要原因是我发现有一种变体ResNet从Center Loss和SphereFace开始被广泛使用于人脸识别领域，包括后来的AMSoftmax、CosineFace、InsightFace都使用了同样的网络结构。当然InsightFace的Project里实现了很多种不同的Backbone网络结构。 我暂时叫这种变体为Face-ResNet，He Kai">
@@ -396,6 +396,8 @@
 </tr>
 </tbody>
 </table>
+<p>这样大家应该能看出来这两种网络结构的区别了，至于为什么Face-ResNet更work，那就得再分析了。</p>
+<p>btw，我之前曾经搜到一篇paper，讲的就是这种专为人脸识别设计的Resnet结构，其中提出的结构和上述类似，然而这篇paper我已经找不到了……</p>
 
       
     </div>
