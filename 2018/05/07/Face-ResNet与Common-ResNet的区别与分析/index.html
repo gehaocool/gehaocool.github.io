@@ -106,7 +106,7 @@
 <meta property="og:site_name" content="Gopeth&#39;s blog">
 <meta property="og:description" content="最近在纠结网络结构对识别性能的影响。 纠结的主要原因是我发现有一种变体ResNet从Center Loss和SphereFace开始被广泛使用于人脸识别领域，包括后来的AMSoftmax、CosineFace、InsightFace都使用了同样的网络结构。当然InsightFace的Project里实现了很多种不同的Backbone网络结构。 我暂时叫这种变体为Face-ResNet，He Kai">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-07T08:19:52.652Z">
+<meta property="og:updated_time" content="2018-05-07T08:23:52.004Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Face-ResNet与Common-ResNet的区别与分析">
 <meta name="twitter:description" content="最近在纠结网络结构对识别性能的影响。 纠结的主要原因是我发现有一种变体ResNet从Center Loss和SphereFace开始被广泛使用于人脸识别领域，包括后来的AMSoftmax、CosineFace、InsightFace都使用了同样的网络结构。当然InsightFace的Project里实现了很多种不同的Backbone网络结构。 我暂时叫这种变体为Face-ResNet，He Kai">
@@ -348,6 +348,7 @@
 <p>首先，Wen Yandong和Liu Weiyang两位大神在Center Loss和SphereFace的paper中并没有提到采用这种网络结构的原因。然而作为他们这种水平的研究者，不可能随随便便使用一个网络结构而不采用更加常见的ResNet，这更加勾起了我的好奇心。</p>
 <p>然后，这种网络结构的效果又确实非常不错。我以人脸识别为任务比较了同样50层的结构，性能比Common-Resnet明显好，而且在训练过程中不容易产生网络崩溃或者说退化的情况。</p>
 <p>再次，仔细观察Face-ResNet之后会发现其网络设计有一些奇特的地方。比如并没有使用BN层。大家都知道，做分类BN是一种能简单好用的提高性能的正则化手段。可是这个Face-ResNet并没有使用任何BN层。这里只是举一个例子，下面我用一个表格来列出Face-ResNet相比较Common-ResNet的不同之处，以及产生的影响或者原因。</p>
+<a id="more"></a>
 <hr>
 <table>
 <thead>
