@@ -272,6 +272,183 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/Face-ResNet与Common-ResNet的区别与分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gopeth">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gopeth's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/07/Face-ResNet与Common-ResNet的区别与分析/" itemprop="url">Face-ResNet与Common-ResNet的区别与分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T15:54:13+08:00">2018-05-07</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在纠结网络结构对识别性能的影响。</p>
+<p>纠结的主要原因是我发现有一种变体ResNet从Center Loss和SphereFace开始被广泛使用于人脸识别领域，包括后来的AMSoftmax、CosineFace、InsightFace都使用了同样的网络结构。当然InsightFace的Project里实现了很多种不同的Backbone网络结构。</p>
+<p>我暂时叫这种变体为Face-ResNet，He Kaiming原文中的Resnet我称为Common-Resnet</p>
+<p>那么这么一种变体ResNet为什么会让我纠结呢？</p>
+<p>首先，Wen Yandong和Liu Weiyang两位大神在Center Loss和SphereFace的paper中并没有提到采用这种网络结构的原因。然而作为他们这种水平的研究者，不可能随随便便使用一个网络结构而不采用更加常见的ResNet，这更加勾起了我的好奇心。</p>
+<p>然后，这种网络结构的效果又确实非常不错。我以人脸识别为任务比较了同样50层的结构，性能比Common-Resnet明显好，而且在训练过程中不容易产生网络崩溃或者说退化的情况。</p>
+<p>再次，仔细观察Face-ResNet之后会发现其网络设计有一些奇特的地方。比如并没有使用BN层。大家都知道，做分类BN是一种能简单好用的提高性能的正则化手段。可是这个Face-ResNet并没有使用任何BN层。这里只是举一个例子，下面我用一个表格来列出Face-ResNet相比较Common-ResNet的不同之处，以及产生的影响或者原因。</p>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th>Face-ResNet相对于Common-ResNet的不同之处</th>
+<th style="text-align:center">原因分析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td>所有残差结合处的 Eltwise 层后没有 ReLU 激活层</td>
+<td style="text-align:center">只有最后的全连接层后的 ReLU 层会导致输出只分布在正数空间中，因此网络中间部分的 ReLU 应该不会对性能造成太大影响</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td>每一层残差分支内部的激活层使用 PReLU 而不是 ReLU</td>
+<td style="text-align:center"><strong>PReLU 可以取得比 ReLU 更好的效果</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td>除了全连接层和每一个 Stage 的第一个卷积层初始化使用 Xavier 之外，其他所有残差 Block 中卷积层的 weight 初始化都使用了 gaussian（std=0.01）</td>
+<td style="text-align:center">应该影响不大</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td>没有 BN 层</td>
+<td style="text-align:center">BN可以加速收敛，如果网络难以收敛则BN会起到很大作用，但如果已经可以正确收敛，则并不是必须的。但有人在4层和6层的SphereFaceNet上进行试验，加入BN可以取得更好的效果。<strong>BN不应该是 Common Resnet 性能不佳的原因</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td>没有 Pooling 层</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td><strong>残差分支内部没有 Bottleneck 结构</strong>，即 channel 数没有变小再增大的过程，而是一直保持不变</td>
+<td style="text-align:center">猜测：特别针对人脸识别，为了保持更多的信息，并不进行降维特征提取；另外 <strong>Face-ResNet 的每个 Residual Block 只有2个卷积层</strong>。Common-Resnet 设计 Bottleneck 的主要目的是为了降低参数量，加快训练速度</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td><strong>每个 stage 中卷积层的 channel 数不同</strong></td>
+<td style="text-align:center">Face-ResNet 是[64, 64, 128, 256, 512]; Common-Resnet 是[64, 256, 512, 1024, 2048]</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/文本编辑器测试总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -692,7 +869,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -901,6 +1078,8 @@
 
   
   
+    
+      
     
       
     
